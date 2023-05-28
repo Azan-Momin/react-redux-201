@@ -1,0 +1,26 @@
+#app {
+  /* max-width: 850px; */
+  margin: 0 auto;
+}
+
+nav {
+  /* padding: 20px 0; */
+  background-color: #009dcf;
+}
+
+nav a:link,
+nav a:visited,
+nav a:hover,
+nav a:active {
+  display: inline-block;
+  padding: 20px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+nav a.active {
+  color:#009dcf;
+  background-color: #aed3e3;
+}
