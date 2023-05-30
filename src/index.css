@@ -1,11 +1,10 @@
 #app {
-  /* max-width: 850px; */
   margin: 0 auto;
 }
 
 nav {
-  /* padding: 20px 0; */
   background-color: #009dcf;
+  margin-bottom: 30px;
 }
 
 nav a:link,
@@ -23,4 +22,12 @@ nav a:active {
 nav a.active {
   color:#009dcf;
   background-color: #aed3e3;
+}
+
+form div.form-group {
+  margin-bottom: 20px;
+}
+
+form div.form-group label {
+  margin-bottom: 10px;
 }
