@@ -20,7 +20,7 @@ nav a:active {
 }
 
 nav a.active {
-  color:#009dcf;
+  color: #009dcf;
   background-color: #aed3e3;
 }
 
@@ -30,4 +30,8 @@ form div.form-group {
 
 form div.form-group label {
   margin-bottom: 10px;
+}
+
+button#add-course-btn {
+  margin-top: 20px;
 }
