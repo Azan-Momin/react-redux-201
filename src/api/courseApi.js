@@ -23,7 +23,10 @@ export function saveCourse(course) {
 
 export function deleteCourse(courseId) {
   console.log("Hard-coded the base-url in this file");
-  return fetch(baseUrl + courseId, { method: "DELETE" })
-    .then(handleResponse)
-    .catch(handleError);
+  return (
+    fetch(baseUrl + courseId, { method: "DELETE" })
+      // fetch(baseUrl + 1000, { method: "DELETE" }) // Dummy course ID to check api fail status
+      .then(handleResponse)
+      .catch(handleError)
+  );
 }
