@@ -27,7 +27,7 @@ function ManageCoursePage({
         alert("Loading courses failed" + error);
       });
     } else {
-      setCourse({...props.course})
+      setCourse({ ...props.course });
     }
 
     if (authors.length === 0) {
@@ -45,26 +45,45 @@ function ManageCoursePage({
     }));
   }
 
-  function handleSave(e) {
-    e.preventDefault();
-    setSaving(true);
-    saveCourse(course).then(() => {
-      toast.success("Course saved successfully...");
-      history.push("/courses"); // Alternate to Redirect
-    });
+  function formIsValid() {
+    const { title, authorId, category } = course;
+    const errors = {};
+
+    if (!title) errors.title = "Title is required!";
+    if (!authorId) errors.author = "Author Id is required!";
+    if (!category) errors.category = "category is required!";
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
   }
 
-  return (
-    authors.length === 0 || courses.length === 0 ? 
-    (<Spinner/>) :
-  (   <CourseForm
+  function handleSave(e) {
+    e.preventDefault();
+    if (!formIsValid()) return;
+    setSaving(true);
+    saveCourse(course)
+      .then(() => {
+        toast.success("Course saved successfully...");
+        console.log("Course saved successfully...");
+        history.push("/courses"); // Alternate to Redirect
+      })
+      .catch((error) => {
+        setSaving(false);
+        setErrors({ onSave: error.message });
+      });
+  }
+
+  return authors.length === 0 || courses.length === 0 ? (
+    <Spinner />
+  ) : (
+    <CourseForm
       course={course}
       errors={errors}
       authors={authors}
       onChange={handleChange}
       onSave={handleSave}
       saving={saving}
-    />)
+    />
   );
 }
 
@@ -75,20 +94,23 @@ ManageCoursePage.propTypes = {
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   saveCourse: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
 };
 
-function loadCourseBySlug(courses, slug){
-  return courses.find(course => course.slug === slug) || null;
+function loadCourseBySlug(courses, slug) {
+  return courses.find((course) => course.slug === slug) || null;
 }
 
 function mapStateToProps(state, ownProps) {
   const slug = ownProps.match.params.slug;
-  const course = slug && state.courses.length > 0 ? loadCourseBySlug(state.courses, slug) : newCourse;
+  const course =
+    slug && state.courses.length > 0
+      ? loadCourseBySlug(state.courses, slug)
+      : newCourse;
   return {
     course,
     courses: state.courses,
-    authors: state.authors
+    authors: state.authors,
   };
 }
 
